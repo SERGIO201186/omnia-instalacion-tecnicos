@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manual de Instalación · Interno Omnia Technology</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0E17; --navy-soft:#161D30;
+    --paper:#FCFBF8; --ink:#14181F; --muted:#5B6472; --border:#E7E5DF;
+    --gold:#6C5CE7; --gold-soft:#E4E0FB;
+    --green:#2F9E64; --green-soft:#E3F3EA;
+    --red:#C4483A; --red-soft:#F6E4E1;
+    --amber:#B8860B; --amber-soft:#FBF1DA;
+    --display:'Space Grotesk', ui-sans-serif, sans-serif;
+    --body:'Inter', ui-sans-serif, system-ui, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:var(--gold);}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  h1,h2,h3,h4{font-family:var(--display); margin:0 0 10px; letter-spacing:-0.01em; color:var(--ink);}
+  code{font-family:var(--mono); background:var(--gold-soft); color:#4A3AC9; padding:1px 6px; border-radius:5px; font-size:0.92em;}
+  pre{background:var(--navy-soft); color:#E4E0FB; padding:16px 18px; border-radius:10px; overflow-x:auto; font-size:13px; line-height:1.55;}
+  pre code{background:none; color:inherit; padding:0;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  .nav{position:sticky; top:0; z-index:40; background:var(--navy); color:#fff;}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:17px; color:#fff; text-decoration:none;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+  .nav-tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8B93A1; border:1px solid rgba(255,255,255,0.18); padding:5px 10px; border-radius:999px;}
+
+  .hero{background:var(--navy); color:#fff; padding:46px 0 36px;}
+  .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; color:var(--gold); text-transform:uppercase;}
+  .hero h1{font-size:30px; color:#fff; margin:12px 0 10px;}
+  .hero p{color:#B9C0CE; font-size:14.5px; max-width:640px; margin:0;}
+  .hero-meta{display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; font-family:var(--mono); font-size:12px; color:#8B93A1;}
+
+  .warn-banner{background:var(--red-soft); border-bottom:1px solid #eec7c0; padding:10px 0; font-size:13px; color:#7a2e24; text-align:center;}
+
+  .layout{display:grid; grid-template-columns:250px 1fr; gap:44px; padding:40px 0 80px; align-items:start;}
+  .toc{position:sticky; top:84px; align-self:start; border-right:1px solid var(--border); padding-right:20px;}
+  .toc-title{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;}
+  .toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+  .toc a{display:block; text-decoration:none; color:var(--muted); font-size:13px; padding:6px 8px; border-radius:6px;}
+  .toc a:hover{background:var(--gold-soft); color:#4A3AC9;}
+
+  main section{padding-bottom:40px; margin-bottom:40px; border-bottom:1px solid var(--border); scroll-margin-top:84px;}
+  main section:last-child{border-bottom:none;}
+  main h2{font-size:22px;}
+  main h3{font-size:15.5px; margin-top:20px;}
+  main p{color:var(--ink); font-size:14.5px;}
+  main ul, main ol{padding-left:22px; font-size:14.5px;}
+  main li{margin-bottom:5px;}
+  .lead{color:var(--muted); font-size:14.5px; margin-bottom:16px;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:13.5px;}
+  th, td{border:1px solid var(--border); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--navy-soft); color:#fff; font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;}
+  tr:nth-child(even) td{background:#fff;}
+  tr:nth-child(odd) td{background:var(--paper);}
+
+  .checklist{list-style:none; padding:0; margin:14px 0;}
+  .checklist li{font-size:14.5px; margin-bottom:8px; padding-left:28px; position:relative;}
+  .checklist li::before{content:"☐"; position:absolute; left:0; color:var(--gold); font-size:15px;}
+
+  .steps{list-style:none; padding:0; margin:14px 0; counter-reset:step;}
+  .steps li{counter-increment:step; position:relative; padding-left:38px; margin-bottom:14px; font-size:14.5px;}
+  .steps li::before{content:counter(step); position:absolute; left:0; top:0; width:26px; height:26px; border-radius:50%; background:var(--gold-soft); color:#4A3AC9; font-family:var(--mono); font-weight:600; font-size:13px; display:flex; align-items:center; justify-content:center;}
+
+  .box{border-radius:12px; padding:16px 18px; margin:14px 0; font-size:13.5px;}
+  .box.amber{background:var(--amber-soft); border:1px solid #ecd6a0;}
+  .box.gray{background:#fff; border:1px solid var(--border);}
+  .box.red{background:var(--red-soft); border:1px solid #eec7c0;}
+  .box p:first-child{margin-top:0;}
+  .box p:last-child{margin-bottom:0;}
+
+  .phase-badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); margin-bottom:6px;}
+
+  footer{background:var(--navy); color:#8B93A1; padding:26px 0; font-size:12.5px; text-align:center;}
+
+  @media (max-width: 900px){
+    .layout{grid-template-columns:1fr;}
+    .toc{position:static; border-right:none; border-bottom:1px solid var(--border); padding-right:0; padding-bottom:20px; margin-bottom:10px;}
+    .toc ol{flex-direction:row; flex-wrap:wrap;}
+    .hero h1{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="warn-banner">🔒 Documento interno de OMNIA Technology — no compartir el enlace fuera del equipo de instalación.</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="brand"><span class="dot"></span>Omnia Technology</span>
+    <span class="nav-tag">Solo técnicos instaladores</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Manual interno</div>
+    <h1>Manual de Instalación y Configuración Inicial</h1>
+    <p>Funeral 360 · Farma POS · NovaPOS Pro · FastFood Omnia — guía completa para desplegar cualquiera de las cuatro apps en un cliente nuevo.</p>
+    <div class="hero-meta">
+      <span>Versión 1.0</span>
+      <span>Tiempo estimado: 4–6 horas por instalación</span>
+      <span>Requiere: Google Workspace, Apps Script, sin programación</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc">
+    <div class="toc-title">Contenido</div>
+    <ol>
+      <li><a href="#fase1">Fase 1 — Pre-instalación</a></li>
+      <li><a href="#fase2">Fase 2 — Configuración técnica</a></li>
+      <li><a href="#fase3">Fase 3 — Configuración en la app</a></li>
+      <li><a href="#fase4">Fase 4 — Verificación</a></li>
+      <li><a href="#fase5">Fase 5 — Seguimiento</a></li>
+      <li><a href="#acta">Acta de instalación</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <section id="fase1">
+    <div class="phase-badge">Fase 1 · ~1 hora</div>
+    <h2>Pre-instalación</h2>
+
+    <h3>Paso 1 — Datos del cliente</h3>
+    <p class="lead">Checklist a completar antes de instalar:</p>
+    <ul class="checklist">
+      <li>Nombre del negocio</li>
+      <li>App contratada: Funeral 360 / Farma POS / NovaPOS Pro / FastFood Omnia</li>
+      <li>RFC</li>
+      <li>Teléfono principal</li>
+      <li>Email administrador (dueño de la cuenta)</li>
+      <li>Número de usuarios necesarios</li>
+      <li>Número de sucursales y direcciones</li>
+      <li>¿Ya tiene Google Workspace? (dominio si aplica)</li>
+      <li>Versión/plan contratado</li>
+      <li>Fecha de inicio y método de pago</li>
+    </ul>
+
+    <h3>Paso 2 — Carpeta de cliente en Drive interno</h3>
+    <p>Crear en Google Drive (compartida con el equipo OMNIA):</p>
+    <pre><code>/OMNIA/CLIENTES/[AÑO]/[NOMBRE_CLIENTE]/
+├─ Contrato_firmado.pdf
+├─ Factura_activación.pdf
+├─ Credenciales_acceso.xlsx (encriptado)
+├─ Notas_instalación.txt
+├─ Documentos_legales_cliente/     (solo Funeral 360)
+│  ├─ Contrato_adhesión_custom.pdf
+│  ├─ Pagaré_template.pdf
+│  └─ Aviso_privacidad.pdf
+└─ Backups/</code></pre>
+
+    <h3>Paso 3 — Cuenta de Google Workspace del cliente</h3>
+    <ul>
+      <li><strong>Si ya tiene Workspace:</strong> pide credenciales de administrador y confirma que el email admin tiene acceso. No crear una organización nueva.</li>
+      <li><strong>Si no tiene Workspace:</strong> propone Google Workspace Business Standard. Si acepta, crea dominio personalizado; si no, usa un subdominio tipo <code>[cliente].omnia-tech.mx</code>. Tiempo de setup: 2–3 días hábiles.</li>
+    </ul>
+  </section>
+
+  <section id="fase2">
+    <div class="phase-badge">Fase 2 · ~2-3 horas</div>
+    <h2>Configuración técnica</h2>
+
+    <h3>Paso 4 — Proyecto de Apps Script del cliente</h3>
+    <p>En <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a>:</p>
+    <ol class="steps">
+      <li>Crea un proyecto nuevo: <code>"[CLIENTE] - Backend [APP]"</code>, organización OMNIA Technology.</li>
+      <li>Habilita las APIs: Google Sheets API, Google Drive API, Cloud Logging API (Gmail API opcional para alertas).</li>
+      <li>Crea una cuenta de servicio: <code>[app]-sync-[cliente-id]</code>, rol Editor, genera la clave JSON y guárdala en un gestor de contraseñas — nunca en este repositorio.</li>
+      <li>Copia la hoja maestra desde <code>/OMNIA/Templates/[APP]_Master_Template.xlsx</code> a <code>/[CLIENTE]/[APP]_Data_[FECHA].xlsx</code> y compártela con la cuenta de servicio (rol Editor).</li>
+    </ol>
+
+    <h3>Paso 5 — Desplegar el Apps Script</h3>
+    <ol class="steps">
+      <li>En <a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a>, crea el proyecto <code>"[CLIENTE] - Backend [APP]"</code>.</li>
+      <li>Copia el código fuente (<code>Code.gs</code>) del repositorio de backend y actualiza las variables de cliente:
+        <pre><code>const CLIENT_ID = "[CLIENTE_ID_ÚNICO]";
+const CLIENT_NAME = "[NOMBRE CLIENTE]";
+const SHEETS_ID = "[ID DE HOJA CREADA EN PASO 4]";
+const SERVICE_ACCOUNT_EMAIL = "[EMAIL DE CUENTA DE SERVICIO]";
+const TIMEZONE = "America/Mexico_City";
+const ADMIN_EMAIL = "[EMAIL ADMIN CLIENTE]";</code></pre>
+      </li>
+      <li>Ejecuta <code>doTest()</code> desde el menú de Apps Script — debe mostrar <code>✓ Connection successful</code>.</li>
+      <li>Despliega como App web: nuevo deployment → ejecutar como tú → acceso "cualquier persona, incluso anónima" → copia la URL desplegada (termina en <code>/exec</code>).</li>
+      <li>Registra la URL de API, fecha de deployment y versión en <code>Notas_instalación.txt</code> de la carpeta del cliente.</li>
+    </ol>
+
+    <h3>Paso 6 — Alta del cliente en la base de datos de OMNIA</h3>
+    <p>Tabla <code>clientes</code>: id, nombre, domicilio, teléfono, plan, usuarios_máx, sucursales, fecha_inicio, fecha_vencimiento, estado, url_api, email_admin.</p>
+    <p>Tabla <code>usuarios</code> (crear primero el admin): id, cliente_id, email, nombre, puesto, <code>pin</code> (hash SHA-256, <strong>nunca texto plano</strong>), activo, fecha_creación.</p>
+  </section>
+
+  <section id="fase3">
+    <div class="phase-badge">Fase 3 · ~1-2 horas</div>
+    <h2>Configuración inicial en la app</h2>
+
+    <h3>Paso 7 — Primer acceso</h3>
+    <p>URL de producción: <code>https://[app].omnia-tech.mx/index.html?client=[CLIENTE_ID]</code></p>
+    <p>Login inicial: PIN predefinido <code>0000</code> (cambiar de inmediato) o email + contraseña temporal.</p>
+    <ul class="checklist">
+      <li>Iniciar sesión con credenciales temporales</li>
+      <li>Cambiar la contraseña (mínimo 12 caracteres)</li>
+      <li>Crear colaboradores adicionales, cada uno con PIN único y rol correcto</li>
+      <li>Cargar catálogo/inventario inicial según la app (ver tabla)</li>
+      <li>Conectar Google Drive y confirmar "Conexión exitosa"</li>
+      <li>Crear un registro de prueba y verificar que sincronizó a Google Sheets</li>
+    </ul>
+    <table>
+      <tr><th>App</th><th>Qué cargar en la configuración inicial</th></tr>
+      <tr><td>Funeral 360</td><td>Ataúdes y urnas disponibles, paquetes de cremación, salas de velación y sus precios</td></tr>
+      <tr><td>Farma POS</td><td>Catálogo de medicamentos, lotes y fechas de caducidad, proveedores</td></tr>
+      <tr><td>NovaPOS Pro</td><td>Catálogo de productos por giro, existencias iniciales, proveedores</td></tr>
+      <tr><td>FastFood Omnia</td><td>Menú (platillos, fotos, precios, combos y modificadores), roles de meseros/cocina/caja</td></tr>
+    </table>
+
+    <h3>Paso 8 — Documentos legales del cliente (solo Funeral 360)</h3>
+    <p>El cliente debe proporcionar sus propios documentos validados por abogado antes de operar con clientes finales: contrato de adhesión, pagaré, aviso de privacidad (máx. 5&nbsp;MB, PDF).</p>
+    <p>En la app: Administración → Documentos Legales → subir → el sistema valida estructura → email a OMNIA para revisión (24–48h) → una vez aprobado se integra automáticamente. La página pública <code>clausulas-personalizadas.html</code> del sitio explica este proceso al cliente.</p>
+    <div class="box amber">
+      <p>Al validar, revisa únicamente que el documento no contenga código malicioso, no viole derechos de terceros, y tenga estructura de documento legal. <strong>No evalúes conformidad legal</strong> — es responsabilidad del abogado del cliente, no de OMNIA.</p>
+    </div>
+
+    <h3>Paso 9 — Capacitación inicial del cliente</h3>
+    <p><strong>Sesión 1 (30 min) — Demo operativa:</strong> dashboard, crear un registro de prueba, tablero/listado principal, y el flujo específico de la app.</p>
+    <p><strong>Sesión 2 (30 min) — Administración:</strong> alta/baja de usuarios y PINs, verificación de sincronización, cómo reportar un problema y horario de soporte.</p>
+    <p>Materiales a dejar: guía rápida impresa, enlace al manual de usuario y a la guía de la app contratada, contacto de soporte, y el acta de instalación para firma.</p>
+  </section>
+
+  <section id="fase4">
+    <div class="phase-badge">Fase 4 · ~30 min</div>
+    <h2>Verificación post-instalación</h2>
+    <p class="lead">Antes de marcar la instalación como completa:</p>
+    <ul class="checklist">
+      <li><strong>Acceso:</strong> el cliente puede iniciar sesión, cambió las credenciales temporales, hay 2+ usuarios funcionales</li>
+      <li><strong>Datos:</strong> catálogo/inventario cargado, primer registro de prueba creado</li>
+      <li><strong>Sincronización:</strong> URL de Apps Script validada, Google Sheets conectada, primera sincronización visible</li>
+      <li><strong>Capacitación:</strong> el cliente sabe crear un registro, generar su documento/ticket, y reportar un problema</li>
+      <li><strong>Legal (solo Funeral 360):</strong> el cliente firmó el acta reconociendo que debe reemplazar los documentos genéricos</li>
+    </ul>
+  </section>
+
+  <section id="fase5">
+    <div class="phase-badge">Fase 5</div>
+    <h2>Seguimiento</h2>
+    <ul>
+      <li><strong>Día 3:</strong> correo de verificación, ofrecer sesión extra de capacitación si se necesita.</li>
+      <li><strong>Semana 1:</strong> confirmar que la sincronización sigue funcionando y revisar tickets de soporte abiertos.</li>
+      <li><strong>Semana 4:</strong> encuesta de satisfacción.</li>
+      <li><strong>Mensual:</strong> revisar uso (usuarios activos, volumen de registros) y observar señales de mal uso de la licencia.</li>
+    </ul>
+  </section>
+
+  <section id="acta">
+    <h2>Acta de instalación (plantilla)</h2>
+    <pre><code>ACTA DE INSTALACIÓN Y CAPACITACIÓN
+
+Cliente: _______________________  |  Fecha: _______________
+App instalada: ☐ Funeral 360 ☐ Farma POS ☐ NovaPOS Pro ☐ FastFood Omnia
+Técnico OMNIA: _______________________  |  Email: _______________
+Plan/versión: _______________________
+URL de acceso: https://[app].omnia-tech.mx/...
+
+VERIFICACIÓN COMPLETADA:
+☐ Instalación completada satisfactoriamente
+☐ Cliente capacitado en funciones básicas
+☐ Sincronización funcionando correctamente
+☐ (Funeral 360) Documentos legales cargados o pendientes de carga
+
+RECONOCIMIENTOS DEL CLIENTE:
+☐ Recibí capacitación sobre el uso de la aplicación
+☐ (Funeral 360) Entiendo que debo reemplazar los documentos genéricos por
+  versiones propias validadas por mi abogado antes de usarlos con mis
+  clientes finales
+☐ Entiendo las limitaciones de responsabilidad descritas en los Términos
+  y Condiciones
+☐ Entiendo que tengo acceso a soporte por email (48h de respuesta) y a la
+  política de soporte con costo por incidencias repetitivas o no técnicas
+
+Firma cliente: _______________________  |  Fecha: _______________
+Firma técnico OMNIA: _______________________  |  Fecha: _______________</code></pre>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  Manual interno — no distribuir fuera del equipo de instalación de OMNIA Technology.
+</footer>
+
+</body>
+</html>
