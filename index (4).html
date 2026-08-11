@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manual de Instalación · Interno Omnia Technology</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0E17; --navy-soft:#161D30;
+    --paper:#FCFBF8; --ink:#14181F; --muted:#5B6472; --border:#E7E5DF;
+    --gold:#6C5CE7; --gold-soft:#E4E0FB;
+    --green:#2F9E64; --green-soft:#E3F3EA;
+    --red:#C4483A; --red-soft:#F6E4E1;
+    --amber:#B8860B; --amber-soft:#FBF1DA;
+    --display:'Space Grotesk', ui-sans-serif, sans-serif;
+    --body:'Inter', ui-sans-serif, system-ui, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:var(--gold);}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  h1,h2,h3,h4{font-family:var(--display); margin:0 0 10px; letter-spacing:-0.01em; color:var(--ink);}
+  code{font-family:var(--mono); background:var(--gold-soft); color:#4A3AC9; padding:1px 6px; border-radius:5px; font-size:0.92em;}
+  pre{background:var(--navy-soft); color:#E4E0FB; padding:16px 18px; border-radius:10px; overflow-x:auto; font-size:13px; line-height:1.55;}
+  pre code{background:none; color:inherit; padding:0;}
+  button{font-family:var(--body); cursor:pointer;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  .nav{position:sticky; top:0; z-index:40; background:var(--navy); color:#fff;}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:17px; color:#fff; text-decoration:none;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+  .nav-right{display:flex; align-items:center; gap:10px;}
+  .nav-tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8B93A1; border:1px solid rgba(255,255,255,0.18); padding:5px 10px; border-radius:999px;}
+  .nav a.plain{color:#B9C0CE; font-size:13px; text-decoration:none;}
+
+  .hero{background:var(--navy); color:#fff; padding:38px 0 30px;}
+  .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; color:var(--gold); text-transform:uppercase;}
+  .hero h1{font-size:27px; color:#fff; margin:10px 0 8px;}
+  .hero p{color:#B9C0CE; font-size:14px; max-width:640px; margin:0;}
+
+  .warn-banner{background:var(--red-soft); border-bottom:1px solid #eec7c0; padding:9px 0; font-size:12.5px; color:#7a2e24; text-align:center;}
+
+  /* progress bar */
+  .progress-wrap{position:sticky; top:60px; z-index:35; background:#fff; border-bottom:1px solid var(--border); padding:10px 0; box-shadow:0 2px 8px rgba(10,14,23,0.04);}
+  .progress-label{font-family:var(--mono); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; margin-bottom:6px;}
+  .progress-label strong{color:var(--ink);}
+  .progress-bar-track{height:8px; background:var(--border); border-radius:99px; overflow:hidden;}
+  .progress-bar-fill{height:100%; background:var(--gold); transition:width .3s; width:0%;}
+
+  .layout{display:grid; grid-template-columns:250px 1fr; gap:44px; padding:32px 0 80px; align-items:start;}
+  .toc{position:sticky; top:130px; align-self:start; border-right:1px solid var(--border); padding-right:20px;}
+  .toc-title{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;}
+  .toc ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+  .toc a{display:block; text-decoration:none; color:var(--muted); font-size:13px; padding:6px 8px; border-radius:6px;}
+  .toc a:hover{background:var(--gold-soft); color:#4A3AC9;}
+
+  main section{padding-bottom:36px; margin-bottom:36px; border-bottom:1px solid var(--border); scroll-margin-top:150px;}
+  main section:last-child{border-bottom:none;}
+  main h2{font-size:21px;}
+  main h3{font-size:15px; margin-top:20px;}
+  main p{color:var(--ink); font-size:14.5px;}
+  main ul, main ol{padding-left:22px; font-size:14.5px;}
+  main li{margin-bottom:5px;}
+  .lead{color:var(--muted); font-size:14px; margin-bottom:14px;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:13.5px;}
+  th, td{border:1px solid var(--border); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--navy-soft); color:#fff; font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;}
+  tr:nth-child(even) td{background:#fff;}
+  tr:nth-child(odd) td{background:var(--paper);}
+
+  .phase-badge{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); margin-bottom:6px;}
+
+  .box{border-radius:12px; padding:16px 18px; margin:14px 0; font-size:13.5px;}
+  .box.amber{background:var(--amber-soft); border:1px solid #ecd6a0;}
+  .box.gray{background:#fff; border:1px solid var(--border);}
+  .box.gold{background:var(--gold-soft); border:1px solid #d5cdf7;}
+  .box p:first-child{margin-top:0;}
+  .box p:last-child{margin-bottom:0;}
+
+  /* form fields */
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12px; font-family:var(--mono); color:var(--muted); margin-bottom:6px;}
+  .field input, .field select, .field textarea{width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:#fff; font-family:var(--body); font-size:14px; color:var(--ink);}
+  .field textarea{resize:vertical; min-height:60px;}
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:0 16px;}
+  @media (max-width:640px){.form-grid{grid-template-columns:1fr;}}
+
+  /* checkboxes */
+  .check-item{display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; font-size:14.5px;}
+  .check-item input[type=checkbox]{margin-top:3px; width:18px; height:18px; accent-color:var(--gold); flex-shrink:0; cursor:pointer;}
+  .check-item label{cursor:pointer;}
+  .check-item.done label{color:var(--muted); text-decoration:line-through;}
+  .conditional{display:none;}
+  .conditional.show{display:block;}
+
+  /* signature */
+  .sig-pad{border:1px dashed var(--border); border-radius:12px; background:#fff; touch-action:none; cursor:crosshair; width:100%; height:170px; display:block;}
+  .sig-actions{display:flex; gap:10px; margin-top:8px; align-items:center;}
+
+  .btn-submit-big{background:var(--navy); color:#fff; border:none; padding:14px 20px; border-radius:10px; font-weight:600; font-size:15px; width:100%;}
+  .btn-submit-big:disabled{opacity:.5; cursor:not-allowed;}
+  .btn-secondary{background:#fff; color:var(--navy); border:1px solid var(--border); padding:9px 15px; border-radius:8px; font-weight:600; font-size:13px;}
+  .btn-tiny{background:var(--gold-soft); color:#4A3AC9; border:none; padding:8px 13px; border-radius:7px; font-weight:600; font-size:12.5px;}
+
+  .success-panel{background:var(--green-soft); border:1px solid #bfe4cf; border-radius:14px; padding:26px; text-align:center;}
+  .folio{font-family:var(--mono); font-size:19px; background:#fff; border:1px dashed var(--border); border-radius:8px; padding:10px; margin:14px 0; display:inline-block;}
+
+  .resume-bar{background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin:16px 0; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+  .resume-bar select{flex:1; min-width:200px; padding:9px 10px; border-radius:8px; border:1px solid var(--border);}
+
+  footer{background:var(--navy); color:#8B93A1; padding:26px 0; font-size:12.5px; text-align:center;}
+
+  @media (max-width: 900px){
+    .layout{grid-template-columns:1fr;}
+    .toc{position:static; border-right:none; border-bottom:1px solid var(--border); padding-right:0; padding-bottom:20px; margin-bottom:10px;}
+    .toc ol{flex-direction:row; flex-wrap:wrap;}
+    .hero h1{font-size:22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="warn-banner">🔒 Documento interno de OMNIA Technology — no compartir el enlace fuera del equipo de instalación.</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="brand"><span class="dot"></span>Omnia Technology</span>
+    <div class="nav-right">
+      <a class="plain" href="seguimiento.html">Seguimiento de instalaciones →</a>
+      <span class="nav-tag">Solo técnicos instaladores</span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Manual interno · interactivo</div>
+    <h1>Manual de Instalación y Configuración Inicial</h1>
+    <p>Funeral 360 · Farma POS · NovaPOS Pro · FastFood Omnia — marca cada paso conforme lo completas. Al terminar, el cliente firma de aceptación y el reporte queda registrado.</p>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="wrap">
+    <div class="progress-label"><span>Avance de la instalación</span><strong id="progressText">0% (0/0 pasos)</strong></div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <nav class="toc">
+    <div class="toc-title">Contenido</div>
+    <ol>
+      <li><a href="#datos-instalacion">Datos de la instalación</a></li>
+      <li><a href="#fase1">Fase 1 — Pre-instalación</a></li>
+      <li><a href="#fase2">Fase 2 — Configuración técnica</a></li>
+      <li><a href="#fase3">Fase 3 — Configuración en la app</a></li>
+      <li><a href="#fase4">Fase 4 — Verificación</a></li>
+      <li><a href="#fase5">Fase 5 — Seguimiento posterior</a></li>
+      <li><a href="#acta">Acta y firma del cliente</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+  <section id="datos-instalacion">
+    <h2>🔗 Datos de la instalación</h2>
+    <p class="lead">El ID de instalación vincula todo este formulario con el cliente. Úsalo para retomar el progreso si cierras la página.</p>
+
+    <div class="resume-bar">
+      <select id="draftSelect"><option value="">— Instalaciones guardadas en este dispositivo —</option></select>
+      <button class="btn-secondary" onclick="loadDraftFromSelect()">Cargar</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="field"><label>ID de instalación / cliente *</label><input id="f_clientId" placeholder="ej. huerta-001" oninput="onClientIdChange()" /></div>
+      <div class="field"><label>App a instalar *</label>
+        <select id="f_app" onchange="onAppChange()">
+          <option value="">Selecciona…</option>
+          <option>Funeral 360</option>
+          <option>Farma POS</option>
+          <option>NovaPOS Pro</option>
+          <option>FastFood Omnia</option>
+        </select>
+      </div>
+      <div class="field"><label>Nombre del negocio *</label><input id="f_clientName" oninput="saveDraft()" /></div>
+      <div class="field"><label>RFC</label><input id="f_rfc" oninput="saveDraft()" /></div>
+      <div class="field"><label>Teléfono principal</label><input id="f_telefono" oninput="saveDraft()" /></div>
+      <div class="field"><label>Email administrador</label><input type="email" id="f_emailAdmin" oninput="saveDraft()" /></div>
+      <div class="field"><label>Técnico instalador *</label><input id="f_techName" oninput="saveDraft()" /></div>
+      <div class="field"><label>Email del técnico</label><input type="email" id="f_techEmail" oninput="saveDraft()" /></div>
+    </div>
+    <div class="box gold">Estos datos se guardan automáticamente en este dispositivo mientras avanzas. Nada se envía hasta que el cliente firme al final.</div>
+  </section>
+
+  <section id="fase1">
+    <div class="phase-badge">Fase 1 · ~1 hora</div>
+    <h2>Pre-instalación</h2>
+
+    <h3>Paso 1 — Datos adicionales del cliente</h3>
+    <div class="form-grid">
+      <div class="field"><label>Número de usuarios necesarios</label><input id="f_numUsuarios" oninput="saveDraft()" /></div>
+      <div class="field"><label>Número de sucursales</label><input id="f_numSucursales" oninput="saveDraft()" /></div>
+      <div class="field"><label>¿Ya tiene Google Workspace?</label>
+        <select id="f_workspace" oninput="saveDraft()"><option value="">Selecciona…</option><option>Sí</option><option>No</option></select>
+      </div>
+      <div class="field"><label>Versión / plan contratado</label><input id="f_versionPlan" oninput="saveDraft()" /></div>
+      <div class="field"><label>Fecha de inicio</label><input type="date" id="f_fechaInicio" oninput="saveDraft()" /></div>
+      <div class="field"><label>Método de pago</label>
+        <select id="f_metodoPago" oninput="saveDraft()"><option value="">Selecciona…</option><option>Tarjeta</option><option>Transferencia</option><option>Efectivo</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Direcciones de sucursales</label><textarea id="f_direcciones" oninput="saveDraft()"></textarea></div>
+
+    <h3>Paso 2 — Carpeta de cliente en Drive interno</h3>
+    <div class="check-item"><input type="checkbox" id="c_p1_drive" onchange="toggleCheck('p1_drive', this.checked)"><label for="c_p1_drive">Carpeta <code>/OMNIA/CLIENTES/[AÑO]/[CLIENTE]/</code> creada, con subcarpeta de documentos legales si es Funeral 360</label></div>
+
+    <h3>Paso 3 — Cuenta de Google Workspace del cliente</h3>
+    <div class="check-item"><input type="checkbox" id="c_p1_workspace" onchange="toggleCheck('p1_workspace', this.checked)"><label for="c_p1_workspace">Workspace confirmado (existente) o solicitado (nuevo), con email admin verificado</label></div>
+  </section>
+
+  <section id="fase2">
+    <div class="phase-badge">Fase 2 · ~2-3 horas</div>
+    <h2>Configuración técnica</h2>
+
+    <h3>Paso 4 — Proyecto de Apps Script del cliente</h3>
+    <div class="check-item"><input type="checkbox" id="c_p4_proyecto" onchange="toggleCheck('p4_proyecto', this.checked)"><label for="c_p4_proyecto">Proyecto creado en Google Cloud Console</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p4_apis" onchange="toggleCheck('p4_apis', this.checked)"><label for="c_p4_apis">APIs habilitadas (Sheets, Drive, Logging)</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p4_cuenta" onchange="toggleCheck('p4_cuenta', this.checked)"><label for="c_p4_cuenta">Cuenta de servicio creada y clave JSON resguardada</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p4_hoja" onchange="toggleCheck('p4_hoja', this.checked)"><label for="c_p4_hoja">Hoja maestra copiada y compartida con la cuenta de servicio</label></div>
+
+    <h3>Paso 5 — Desplegar el Apps Script</h3>
+    <div class="check-item"><input type="checkbox" id="c_p5_proyecto" onchange="toggleCheck('p5_proyecto', this.checked)"><label for="c_p5_proyecto">Proyecto de Apps Script creado</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p5_codigo" onchange="toggleCheck('p5_codigo', this.checked)"><label for="c_p5_codigo">Código copiado y variables del cliente actualizadas</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p5_test" onchange="toggleCheck('p5_test', this.checked)"><label for="c_p5_test"><code>doTest()</code> ejecutado con éxito</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p5_deploy" onchange="toggleCheck('p5_deploy', this.checked)"><label for="c_p5_deploy">Desplegado como App web</label></div>
+    <div class="field"><label>URL de Apps Script desplegada</label><input id="f_apiUrl" placeholder="https://script.google.com/macros/s/…/exec" oninput="saveDraft()" /></div>
+
+    <h3>Paso 6 — Alta del cliente en la base de datos de OMNIA</h3>
+    <div class="check-item"><input type="checkbox" id="c_p6_bd" onchange="toggleCheck('p6_bd', this.checked)"><label for="c_p6_bd">Cliente dado de alta en la tabla <code>clientes</code></label></div>
+    <div class="check-item"><input type="checkbox" id="c_p6_admin" onchange="toggleCheck('p6_admin', this.checked)"><label for="c_p6_admin">Usuario administrador creado con PIN/contraseña temporal (hash, nunca texto plano)</label></div>
+  </section>
+
+  <section id="fase3">
+    <div class="phase-badge">Fase 3 · ~1-2 horas</div>
+    <h2>Configuración inicial en la app</h2>
+
+    <h3>Paso 7 — Primer acceso</h3>
+    <div class="check-item"><input type="checkbox" id="c_p7_login" onchange="toggleCheck('p7_login', this.checked)"><label for="c_p7_login">Inicio de sesión con credenciales temporales</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p7_password" onchange="toggleCheck('p7_password', this.checked)"><label for="c_p7_password">Contraseña cambiada (mínimo 12 caracteres)</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p7_colaboradores" onchange="toggleCheck('p7_colaboradores', this.checked)"><label for="c_p7_colaboradores">Colaboradores adicionales creados con PIN único y rol correcto</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p7_catalogo" onchange="toggleCheck('p7_catalogo', this.checked)"><label for="c_p7_catalogo">Catálogo / inventario inicial cargado</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p7_drive" onchange="toggleCheck('p7_drive', this.checked)"><label for="c_p7_drive">Google Drive conectado — "Conexión exitosa" confirmada</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p7_prueba" onchange="toggleCheck('p7_prueba', this.checked)"><label for="c_p7_prueba">Registro de prueba creado y verificado en Google Sheets</label></div>
+
+    <div id="paso8Block" class="conditional">
+      <h3>Paso 8 — Documentos legales del cliente (solo Funeral 360)</h3>
+      <div class="box amber"><p>Recuerda: solo se valida estructura y seguridad del PDF, nunca su conformidad legal — eso es responsabilidad del abogado del cliente.</p></div>
+      <div class="check-item"><input type="checkbox" id="c_p8_legales" onchange="toggleCheck('p8_legales', this.checked)"><label for="c_p8_legales">Documentos legales cargados por el cliente, o pendiente confirmado con el cliente</label></div>
+    </div>
+
+    <h3>Paso 9 — Capacitación inicial del cliente</h3>
+    <div class="check-item"><input type="checkbox" id="c_p9_sesion1" onchange="toggleCheck('p9_sesion1', this.checked)"><label for="c_p9_sesion1">Sesión 1 realizada (demo operativa)</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p9_sesion2" onchange="toggleCheck('p9_sesion2', this.checked)"><label for="c_p9_sesion2">Sesión 2 realizada (administración y soporte)</label></div>
+    <div class="check-item"><input type="checkbox" id="c_p9_materiales" onchange="toggleCheck('p9_materiales', this.checked)"><label for="c_p9_materiales">Materiales entregados (guía rápida, enlaces al manual y guía de la app)</label></div>
+  </section>
+
+  <section id="fase4">
+    <div class="phase-badge">Fase 4 · ~30 min</div>
+    <h2>Verificación post-instalación</h2>
+    <div class="check-item"><input type="checkbox" id="c_v_acceso" onchange="toggleCheck('v_acceso', this.checked)"><label for="c_v_acceso">Acceso: login funcional, credenciales cambiadas, 2+ usuarios activos</label></div>
+    <div class="check-item"><input type="checkbox" id="c_v_datos" onchange="toggleCheck('v_datos', this.checked)"><label for="c_v_datos">Datos: catálogo cargado, registro de prueba creado</label></div>
+    <div class="check-item"><input type="checkbox" id="c_v_sync" onchange="toggleCheck('v_sync', this.checked)"><label for="c_v_sync">Sincronización: URL validada, primera sincronización visible</label></div>
+    <div class="check-item"><input type="checkbox" id="c_v_capacitacion" onchange="toggleCheck('v_capacitacion', this.checked)"><label for="c_v_capacitacion">Capacitación: el cliente sabe crear un registro, generar su documento y reportar un problema</label></div>
+    <div id="vLegalBlock" class="conditional">
+      <div class="check-item"><input type="checkbox" id="c_v_legal" onchange="toggleCheck('v_legal', this.checked)"><label for="c_v_legal">Legal: el cliente entiende que debe reemplazar los documentos genéricos</label></div>
+    </div>
+  </section>
+
+  <section id="fase5">
+    <div class="phase-badge">Fase 5</div>
+    <h2>Seguimiento posterior (referencia, no bloquea la firma)</h2>
+    <ul>
+      <li><strong>Día 3:</strong> correo de verificación, ofrecer sesión extra de capacitación si se necesita.</li>
+      <li><strong>Semana 1:</strong> confirmar que la sincronización sigue funcionando y revisar tickets de soporte abiertos.</li>
+      <li><strong>Semana 4:</strong> encuesta de satisfacción.</li>
+      <li><strong>Mensual:</strong> revisar uso y observar señales de mal uso de la licencia.</li>
+    </ul>
+  </section>
+
+  <section id="acta">
+    <h2>✍️ Acta y firma del cliente</h2>
+    <p class="lead">Al completar los pasos anteriores, pide al cliente que revise el avance y firme de aceptación. Esto genera el reporte que queda registrado para seguimiento.</p>
+
+    <div id="acta-locked" class="box gray">
+      <p>Completa el ID de instalación, la app, el nombre del cliente y el técnico arriba para habilitar la firma.</p>
+    </div>
+
+    <div id="acta-form" style="display:none;">
+      <div class="form-grid">
+        <div class="field"><label>Nombre de quien firma (cliente)</label><input id="f_signerName" oninput="saveDraft()" /></div>
+        <div class="field"><label>Cargo</label><input id="f_signerRole" placeholder="ej. Propietario, Gerente" oninput="saveDraft()" /></div>
+      </div>
+
+      <label style="display:block; font-size:12px; font-family:var(--mono); color:var(--muted); margin-bottom:6px;">Firma del cliente</label>
+      <canvas id="sigPad" class="sig-pad"></canvas>
+      <div class="sig-actions">
+        <button class="btn-secondary" onclick="clearSignature()">🗑 Limpiar firma</button>
+        <span id="sigStatus" style="font-size:12.5px; color:var(--muted);">Sin firmar</span>
+      </div>
+
+      <div class="check-item" style="margin-top:18px;">
+        <input type="checkbox" id="c_confirmTech" onchange="onConfirmTechChange(this.checked)">
+        <label for="c_confirmTech">Confirmo, como técnico instalador, que realicé la instalación siguiendo este manual</label>
+      </div>
+
+      <button class="btn-submit-big" id="submitBtn" onclick="submitInstallation()" disabled style="margin-top:10px;">Finalizar y registrar instalación</button>
+      <p class="note" id="submitHint" style="font-size:12px; color:var(--muted); margin-top:8px;">Faltan pasos por completar antes de poder finalizar.</p>
+
+      <div id="successPanel" style="display:none; margin-top:18px;"></div>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  Manual interno — no distribuir fuera del equipo de instalación de OMNIA Technology.
+  &nbsp;·&nbsp;<a href="javascript:void(0)" onclick="abrirConfigConexion()" style="color:#8B93A1;">Conectar backend</a>
+</footer>
+
+<script>
+/* =========================================================================
+   ESTADO Y PERSISTENCIA LOCAL
+   ========================================================================= */
+const CHECK_KEYS = [
+  'p1_drive','p1_workspace',
+  'p4_proyecto','p4_apis','p4_cuenta','p4_hoja',
+  'p5_proyecto','p5_codigo','p5_test','p5_deploy',
+  'p6_bd','p6_admin',
+  'p7_login','p7_password','p7_colaboradores','p7_catalogo','p7_drive','p7_prueba',
+  'p8_legales',
+  'p9_sesion1','p9_sesion2','p9_materiales',
+  'v_acceso','v_datos','v_sync','v_capacitacion','v_legal'
+];
+const FUNERAL_ONLY_KEYS = ['p8_legales','v_legal'];
+
+let state = { checks:{} };
+CHECK_KEYS.forEach(k => state.checks[k] = false);
+
+function draftKey(id){ return 'omnia_install_draft_' + id; }
+
+function currentClientId(){ return document.getElementById('f_clientId').value.trim(); }
+
+function collectFormIntoState(){
+  const ids = ['f_clientId','f_app','f_clientName','f_rfc','f_telefono','f_emailAdmin','f_techName','f_techEmail',
+    'f_numUsuarios','f_numSucursales','f_workspace','f_versionPlan','f_fechaInicio','f_metodoPago','f_direcciones',
+    'f_apiUrl','f_signerName','f_signerRole'];
+  ids.forEach(id => { state[id] = document.getElementById(id).value; });
+}
+
+function applyStateToForm(s){
+  Object.keys(s).forEach(k => {
+    const el = document.getElementById(k);
+    if(el && k.startsWith('f_')) el.value = s[k] || '';
+  });
+  CHECK_KEYS.forEach(k => {
+    const el = document.getElementById('c_' + k);
+    if(el){ el.checked = !!(s.checks && s.checks[k]); state.checks[k] = el.checked; toggleDoneClass(el); }
+  });
+  state = Object.assign(state, s);
+  onAppChange();
+  updateProgress();
+  updateActaGate();
+}
+
+function saveDraft(){
+  collectFormIntoState();
+  const id = currentClientId();
+  if(!id) return;
+  localStorage.setItem(draftKey(id), JSON.stringify(state));
+  refreshDraftSelect();
+  updateActaGate();
+}
+
+function onClientIdChange(){ saveDraft(); }
+
+function refreshDraftSelect(){
+  const sel = document.getElementById('draftSelect');
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— Instalaciones guardadas en este dispositivo —</option>';
+  Object.keys(localStorage).filter(k => k.startsWith('omnia_install_draft_')).forEach(k => {
+    try{
+      const s = JSON.parse(localStorage.getItem(k));
+      const id = k.replace('omnia_install_draft_','');
+      const label = `${id} — ${s.f_clientName || 'sin nombre'} (${s.f_app || 'sin app'})${s.submittedAt ? ' ✓ enviado' : ''}`;
+      const opt = document.createElement('option');
+      opt.value = id; opt.textContent = label;
+      sel.appendChild(opt);
+    }catch(e){}
+  });
+  sel.value = current;
+}
+
+function loadDraftFromSelect(){
+  const id = document.getElementById('draftSelect').value;
+  if(!id) return;
+  const raw = localStorage.getItem(draftKey(id));
+  if(!raw) return;
+  applyStateToForm(JSON.parse(raw));
+}
+
+/* =========================================================================
+   CHECKLIST Y PROGRESO
+   ========================================================================= */
+function toggleDoneClass(el){
+  const item = el.closest('.check-item');
+  if(item) item.classList.toggle('done', el.checked);
+}
+
+function toggleCheck(key, val){
+  state.checks[key] = val;
+  toggleDoneClass(document.getElementById('c_' + key));
+  saveDraft();
+  updateProgress();
+}
+
+function visibleCheckKeys(){
+  const app = document.getElementById('f_app').value;
+  return CHECK_KEYS.filter(k => !FUNERAL_ONLY_KEYS.includes(k) || app === 'Funeral 360');
+}
+
+function updateProgress(){
+  const keys = visibleCheckKeys();
+  const total = keys.length;
+  const done = keys.filter(k => state.checks[k]).length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${pct}% (${done}/${total} pasos)`;
+  updateActaGate();
+}
+
+function onAppChange(){
+  const app = document.getElementById('f_app').value;
+  const isFuneral = app === 'Funeral 360';
+  document.getElementById('paso8Block').classList.toggle('show', isFuneral);
+  document.getElementById('vLegalBlock').classList.toggle('show', isFuneral);
+  saveDraft();
+  updateProgress();
+}
+
+/* =========================================================================
+   FIRMA (CANVAS)
+   ========================================================================= */
+let sigCtx, drawing = false, hasSignature = false;
+function initSignaturePad(){
+  const canvas = document.getElementById('sigPad');
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = canvas.clientWidth * ratio;
+  canvas.height = canvas.clientHeight * ratio;
+  sigCtx = canvas.getContext('2d');
+  sigCtx.scale(ratio, ratio);
+  sigCtx.lineWidth = 2.2;
+  sigCtx.lineCap = 'round';
+  sigCtx.strokeStyle = '#14181F';
+
+  const pos = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  };
+  const start = (e) => { drawing = true; const p = pos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); e.preventDefault(); };
+  const move = (e) => { if(!drawing) return; const p = pos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); hasSignature = true; document.getElementById('sigStatus').textContent = 'Firma capturada'; updateActaGate(); e.preventDefault(); };
+  const end = () => { drawing = false; };
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', end);
+}
+function clearSignature(){
+  const canvas = document.getElementById('sigPad');
+  sigCtx.clearRect(0,0,canvas.width,canvas.height);
+  hasSignature = false;
+  document.getElementById('sigStatus').textContent = 'Sin firmar';
+  updateActaGate();
+}
+
+/* =========================================================================
+   ACTA / ENVÍO FINAL
+   ========================================================================= */
+let confirmTech = false;
+function onConfirmTechChange(val){ confirmTech = val; saveDraft(); updateActaGate(); }
+
+function updateActaGate(){
+  const id = currentClientId();
+  const app = document.getElementById('f_app').value;
+  const clientName = document.getElementById('f_clientName').value.trim();
+  const techName = document.getElementById('f_techName').value.trim();
+  const ready = id && app && clientName && techName;
+
+  document.getElementById('acta-locked').style.display = ready ? 'none' : 'block';
+  document.getElementById('acta-form').style.display = ready ? 'block' : 'none';
+  if(!ready) return;
+
+  const keys = visibleCheckKeys();
+  const allChecked = keys.every(k => state.checks[k]);
+  const signerName = document.getElementById('f_signerName').value.trim();
+  const canSubmit = allChecked && hasSignature && confirmTech && signerName;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = !canSubmit;
+  document.getElementById('submitHint').textContent = canSubmit
+    ? 'Todo listo para registrar la instalación.'
+    : 'Faltan pasos del checklist, la firma del cliente, el nombre de quien firma, o la confirmación del técnico.';
+}
+
+function getApiUrl(){ return localStorage.getItem('omnia_install_api_url') || ''; }
+function setApiUrl(url){ localStorage.setItem('omnia_install_api_url', url); }
+function abrirConfigConexion(){
+  const url = prompt('Pega la URL de tu Apps Script (termina en /exec):', getApiUrl());
+  if(url === null) return;
+  if(url.trim() && !url.startsWith('http')){ alert('La URL debe empezar con https://'); return; }
+  setApiUrl(url.trim());
+  alert('Backend configurado. Los siguientes envíos intentarán registrarse automáticamente.');
+}
+
+async function submitInstallation(){
+  collectFormIntoState();
+  const canvas = document.getElementById('sigPad');
+  const signatureDataUrl = canvas.toDataURL('image/png');
+  const folio = 'INST-' + currentClientId().toUpperCase().replace(/[^A-Z0-9]/g,'') + '-' + Date.now().toString(36).toUpperCase();
+  const keys = visibleCheckKeys();
+  const done = keys.filter(k => state.checks[k]).length;
+
+  const payload = {
+    action: 'installationReport',
+    folio,
+    clientId: currentClientId(),
+    clientName: state.f_clientName,
+    app: state.f_app,
+    rfc: state.f_rfc,
+    telefono: state.f_telefono,
+    emailAdmin: state.f_emailAdmin,
+    technicianName: state.f_techName,
+    technicianEmail: state.f_techEmail,
+    apiUrlDesplegada: state.f_apiUrl,
+    signerName: state.f_signerName,
+    signerRole: state.f_signerRole,
+    checklist: state.checks,
+    stepsDone: done,
+    stepsTotal: keys.length,
+    completionPercent: keys.length ? Math.round((done/keys.length)*100) : 0,
+    signatureDataUrl,
+    submittedAt: new Date().toISOString()
+  };
+
+  state.submittedAt = payload.submittedAt;
+  state.folio = folio;
+  localStorage.setItem(draftKey(currentClientId()), JSON.stringify(state));
+  refreshDraftSelect();
+
+  let sentOk = false;
+  const apiUrl = getApiUrl();
+  if(apiUrl){
+    try{
+      const r = await fetch(apiUrl, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(payload) });
+      const res = await r.json();
+      sentOk = !!(res && !res.error);
+    }catch(e){ sentOk = false; }
+  }
+
+  downloadJson(payload, `${folio}.json`);
+
+  const panel = document.getElementById('successPanel');
+  panel.style.display = 'block';
+  panel.innerHTML = `
+    <div class="success-panel">
+      <h3>✅ Instalación registrada</h3>
+      <div class="folio">${folio}</div>
+      <p style="font-size:13.5px; color:var(--muted);">${payload.completionPercent}% de los pasos completados · ${sentOk ? 'Enviado al backend de seguimiento.' : (apiUrl ? 'No se pudo enviar al backend — se descargó un respaldo, reintenta cuando tengas conexión.' : 'Backend no configurado — se descargó un respaldo. Usa "Conectar backend" abajo o envía este archivo a Sergio.')}</p>
+    </div>`;
+  document.getElementById('submitBtn').disabled = true;
+}
+
+function downloadJson(obj, filename){
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* =========================================================================
+   INIT
+   ========================================================================= */
+window.addEventListener('DOMContentLoaded', () => {
+  initSignaturePad();
+  refreshDraftSelect();
+  const params = new URLSearchParams(location.search);
+  const client = params.get('client');
+  if(client){
+    document.getElementById('f_clientId').value = client;
+    const raw = localStorage.getItem(draftKey(client));
+    if(raw) applyStateToForm(JSON.parse(raw));
+  }
+  updateProgress();
+  updateActaGate();
+});
+</script>
+</body>
+</html>

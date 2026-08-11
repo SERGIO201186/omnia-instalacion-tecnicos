@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seguimiento de Instalaciones · Interno Omnia Technology</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A0E17; --navy-soft:#161D30;
+    --paper:#FCFBF8; --ink:#14181F; --muted:#5B6472; --border:#E7E5DF;
+    --gold:#6C5CE7; --gold-soft:#E4E0FB;
+    --green:#2F9E64; --green-soft:#E3F3EA;
+    --red:#C4483A; --red-soft:#F6E4E1;
+    --amber:#B8860B; --amber-soft:#FBF1DA;
+    --display:'Space Grotesk', ui-sans-serif, sans-serif;
+    --body:'Inter', ui-sans-serif, system-ui, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:var(--gold);}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  h1,h2,h3{font-family:var(--display); margin:0 0 10px; letter-spacing:-0.01em; color:var(--ink);}
+  button{font-family:var(--body); cursor:pointer;}
+  code{font-family:var(--mono); background:var(--gold-soft); color:#4A3AC9; padding:1px 6px; border-radius:5px; font-size:0.92em;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  .nav{position:sticky; top:0; z-index:40; background:var(--navy); color:#fff;}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:17px; color:#fff; text-decoration:none;}
+  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+  .nav a.plain{color:#B9C0CE; font-size:13px; text-decoration:none;}
+  .nav-tag{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#8B93A1; border:1px solid rgba(255,255,255,0.18); padding:5px 10px; border-radius:999px;}
+
+  .warn-banner{background:var(--red-soft); border-bottom:1px solid #eec7c0; padding:9px 0; font-size:12.5px; color:#7a2e24; text-align:center;}
+
+  .hero{background:var(--navy); color:#fff; padding:34px 0 26px;}
+  .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.12em; color:var(--gold); text-transform:uppercase;}
+  .hero h1{font-size:25px; color:#fff; margin:10px 0 6px;}
+  .hero p{color:#B9C0CE; font-size:13.5px; margin:0;}
+
+  main{padding:30px 0 80px;}
+
+  .stats-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:24px;}
+  .stat-card{background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px 18px;}
+  .stat-card .num{font-family:var(--display); font-size:26px; font-weight:600;}
+  .stat-card .label{font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px;}
+  .toolbar select, .toolbar input{padding:9px 12px; border-radius:8px; border:1px solid var(--border); font-size:13.5px; font-family:var(--body);}
+  .btn-tiny{background:var(--gold-soft); color:#4A3AC9; border:none; padding:8px 13px; border-radius:7px; font-weight:600; font-size:12.5px;}
+  .btn-secondary{background:#fff; color:var(--navy); border:1px solid var(--border); padding:8px 14px; border-radius:8px; font-weight:600; font-size:12.5px;}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:13.5px; background:#fff;}
+  th, td{border:1px solid var(--border); padding:10px 12px; text-align:left; vertical-align:middle;}
+  th{background:var(--navy-soft); color:#fff; font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;}
+  tr:hover td{background:var(--gold-soft);}
+
+  .badge{display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:999px;}
+  .badge.green{background:var(--green-soft); color:var(--green);}
+  .badge.amber{background:var(--amber-soft); color:var(--amber);}
+  .badge.red{background:var(--red-soft); color:var(--red);}
+  .badge.gray{background:var(--paper); color:var(--muted); border:1px solid var(--border);}
+
+  .box{border-radius:12px; padding:18px 20px; margin:14px 0; font-size:13.5px;}
+  .box.gray{background:#fff; border:1px solid var(--border);}
+  .box.gold{background:var(--gold-soft); border:1px solid #d5cdf7;}
+
+  .modal-backdrop{position:fixed; inset:0; background:rgba(14,22,38,0.55); display:none; align-items:center; justify-content:center; z-index:100; padding:16px;}
+  .modal-backdrop.open{display:flex;}
+  .modal{background:#fff; border-radius:16px; max-width:560px; width:100%; padding:26px; max-height:88vh; overflow-y:auto;}
+  .modal h3{margin-bottom:4px;}
+  .modal-close{float:right; background:none; border:none; font-size:20px; color:var(--muted);}
+  .detail-row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); font-size:13.5px;}
+  .detail-row .label{color:var(--muted);}
+  .sig-preview{width:100%; border:1px solid var(--border); border-radius:8px; margin-top:8px; background:#fff;}
+
+  footer{background:var(--navy); color:#8B93A1; padding:26px 0; font-size:12.5px; text-align:center;}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">🔒 Panel interno de seguimiento — no compartir el enlace fuera del equipo de OMNIA.</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <span class="brand"><span class="dot"></span>Omnia Technology</span>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <a class="plain" href="index.html">← Manual de instalación</a>
+      <span class="nav-tag">Seguimiento</span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Panel interno</div>
+    <h1>Seguimiento de Instalaciones</h1>
+    <p>Instalaciones registradas por técnicos, con su porcentaje de avance y firma del cliente.</p>
+  </div>
+</header>
+
+<div class="wrap">
+<main>
+
+  <div id="connBox"></div>
+
+  <div class="stats-row" id="statsRow"></div>
+
+  <div class="toolbar">
+    <select id="filterApp" onchange="renderTable()">
+      <option value="">Todas las apps</option>
+      <option>Funeral 360</option>
+      <option>Farma POS</option>
+      <option>NovaPOS Pro</option>
+      <option>FastFood Omnia</option>
+    </select>
+    <input id="filterText" placeholder="Buscar cliente, folio o técnico…" oninput="renderTable()" />
+    <button class="btn-secondary" onclick="loadInstallations()">🔄 Actualizar</button>
+    <button class="btn-tiny" onclick="exportCsv()">⬇ Exportar CSV</button>
+  </div>
+
+  <div id="tableWrap"></div>
+
+</main>
+</div>
+
+<div class="modal-backdrop" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="detailBody"></div>
+  </div>
+</div>
+
+<footer>
+  Panel interno — solo para OMNIA Technology. &nbsp;·&nbsp;<a href="javascript:void(0)" onclick="abrirConfigConexion()" style="color:#8B93A1;">Conectar backend</a>
+</footer>
+
+<script>
+let installations = [];
+
+function getApiUrl(){ return localStorage.getItem('omnia_install_api_url') || ''; }
+function setApiUrl(url){ localStorage.setItem('omnia_install_api_url', url); }
+function abrirConfigConexion(){
+  const url = prompt('Pega la URL de tu Apps Script (termina en /exec):', getApiUrl());
+  if(url === null) return;
+  if(url.trim() && !url.startsWith('http')){ alert('La URL debe empezar con https://'); return; }
+  setApiUrl(url.trim());
+  loadInstallations();
+}
+
+function localSubmittedRecords(){
+  return Object.keys(localStorage)
+    .filter(k => k.startsWith('omnia_install_draft_'))
+    .map(k => { try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } })
+    .filter(s => s && s.submittedAt)
+    .map(s => ({
+      folio: s.folio || '(sin folio)',
+      clientId: s.f_clientId, clientName: s.f_clientName, app: s.f_app,
+      technicianName: s.f_techName, completionPercent: computeLocalPercent(s),
+      submittedAt: s.submittedAt, signatureDataUrl: null, source: 'local'
+    }));
+}
+function computeLocalPercent(s){
+  const keys = Object.keys(s.checks || {});
+  if(!keys.length) return 0;
+  const done = keys.filter(k => s.checks[k]).length;
+  return Math.round((done/keys.length)*100);
+}
+
+async function loadInstallations(){
+  const box = document.getElementById('connBox');
+  const apiUrl = getApiUrl();
+  let remote = [];
+  if(apiUrl){
+    box.innerHTML = '';
+    try{
+      const r = await fetch(`${apiUrl}?${new URLSearchParams({action:'listInstallations'})}`);
+      const data = await r.json();
+      if(Array.isArray(data)) remote = data.map(d => Object.assign({source:'backend'}, d));
+    }catch(e){
+      box.innerHTML = `<div class="box gold">No se pudo consultar el backend (${e.message}). Mostrando solo registros locales de este dispositivo.</div>`;
+    }
+  } else {
+    box.innerHTML = `<div class="box gold">Backend no configurado — mostrando solo instalaciones registradas <strong>en este dispositivo</strong>. Usa "Conectar backend" abajo para ver todas las instalaciones de todos los técnicos.</div>`;
+  }
+  const local = localSubmittedRecords();
+  const seen = new Set(remote.map(r => r.folio));
+  installations = remote.concat(local.filter(l => !seen.has(l.folio)));
+  renderStats();
+  renderTable();
+}
+
+function renderStats(){
+  const total = installations.length;
+  const avg = total ? Math.round(installations.reduce((s,i)=>s+(i.completionPercent||0),0)/total) : 0;
+  const firmadas = installations.filter(i => i.completionPercent >= 100).length;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="num">${total}</div><div class="label">Instalaciones registradas</div></div>
+    <div class="stat-card"><div class="num">${avg}%</div><div class="label">Avance promedio</div></div>
+    <div class="stat-card"><div class="num">${firmadas}</div><div class="label">Completadas al 100%</div></div>
+  `;
+}
+
+function esc(s){ return String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtDate(iso){ if(!iso) return '—'; return new Date(iso).toLocaleString('es-MX',{dateStyle:'medium', timeStyle:'short'}); }
+
+function badgeForPercent(p){
+  if(p >= 100) return `<span class="badge green">✓ 100%</span>`;
+  if(p >= 60) return `<span class="badge amber">${p}%</span>`;
+  return `<span class="badge red">${p}%</span>`;
+}
+
+function renderTable(){
+  const appFilter = document.getElementById('filterApp').value;
+  const textFilter = document.getElementById('filterText').value.trim().toLowerCase();
+  let rows = installations.filter(i => {
+    if(appFilter && i.app !== appFilter) return false;
+    if(textFilter){
+      const hay = `${i.clientName} ${i.clientId} ${i.technicianName} ${i.folio}`.toLowerCase();
+      if(!hay.includes(textFilter)) return false;
+    }
+    return true;
+  }).sort((a,b) => new Date(b.submittedAt||0) - new Date(a.submittedAt||0));
+
+  const wrap = document.getElementById('tableWrap');
+  if(rows.length === 0){
+    wrap.innerHTML = `<div class="box gray">Sin instalaciones que coincidan con el filtro.</div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <tr><th>Fecha</th><th>Cliente</th><th>App</th><th>Técnico</th><th>Avance</th><th>Folio</th><th></th></tr>
+      ${rows.map((i, idx) => `
+        <tr>
+          <td>${fmtDate(i.submittedAt)}</td>
+          <td>${esc(i.clientName)} <span style="color:var(--muted); font-family:var(--mono); font-size:11.5px;">(${esc(i.clientId)})</span></td>
+          <td>${esc(i.app)}</td>
+          <td>${esc(i.technicianName)}</td>
+          <td>${badgeForPercent(i.completionPercent||0)}</td>
+          <td><code>${esc(i.folio)}</code></td>
+          <td><button class="btn-tiny" onclick="openDetail(${idx}, '${appFilter ? 'f' : 'a'}')">Ver</button></td>
+        </tr>
+      `).join('')}
+    </table>`;
+  window.__currentRows = rows;
+}
+
+function openDetail(idx){
+  const i = window.__currentRows[idx];
+  const checklistHtml = i.checklist
+    ? Object.entries(i.checklist).map(([k,v]) => `<div class="detail-row"><span class="label">${esc(k)}</span><span>${v ? '✅' : '❌'}</span></div>`).join('')
+    : '<p style="color:var(--muted); font-size:13px;">Detalle del checklist no disponible (registro local resumido).</p>';
+  document.getElementById('detailBody').innerHTML = `
+    <h3>${esc(i.clientName)}</h3>
+    <p style="color:var(--muted); font-size:13px; margin-top:-6px;">Folio ${esc(i.folio)}</p>
+    <div class="detail-row"><span class="label">App</span><span>${esc(i.app)}</span></div>
+    <div class="detail-row"><span class="label">Técnico</span><span>${esc(i.technicianName)}</span></div>
+    <div class="detail-row"><span class="label">Fecha</span><span>${fmtDate(i.submittedAt)}</span></div>
+    <div class="detail-row"><span class="label">Avance</span><span>${badgeForPercent(i.completionPercent||0)}</span></div>
+    <div class="detail-row"><span class="label">Firmó</span><span>${esc(i.signerName || '—')} ${i.signerRole ? '('+esc(i.signerRole)+')' : ''}</span></div>
+    ${i.signatureDataUrl ? `<img class="sig-preview" src="${i.signatureDataUrl}" alt="Firma">` : ''}
+    <h3 style="margin-top:18px; font-size:15px;">Checklist</h3>
+    ${checklistHtml}
+  `;
+  document.getElementById('detailModal').classList.add('open');
+}
+function closeModal(){ document.getElementById('detailModal').classList.remove('open'); }
+
+function exportCsv(){
+  const rows = window.__currentRows || installations;
+  const header = ['Folio','Fecha','ClienteID','Negocio','App','Tecnico','Avance%','Firmante'];
+  const lines = [header.join(',')].concat(rows.map(i => [
+    i.folio, i.submittedAt, i.clientId, i.clientName, i.app, i.technicianName, i.completionPercent||0, i.signerName||''
+  ].map(v => `"${String(v??'').replace(/"/g,'""')}"`).join(',')));
+  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'instalaciones.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+loadInstallations();
+</script>
+</body>
+</html>
